@@ -1,6 +1,7 @@
 #include <Wire.h>
 #include <inttypes.h>
 #include <LCDi2cNHD.h>                    
+#include <avr/eeprom.h"
 LCDi2cNHD lcd = LCDi2cNHD(2,16,0x50>>1,0);
 
 uint8_t rows = 2;
@@ -16,6 +17,7 @@ void setup() {
   lcd.clear();
   pinMode(buttonPin, INPUT);
   pinMode(ledPin, OUTPUT);
+  eeprom_read_block((void*)&security, (void*)0, sizeof(security));
 }
 
 void loop()
@@ -28,11 +30,13 @@ void loop()
     {
       security = 1;
       lcd.clear();
+      eeprom_write_block((const void*)&security, (void*)0, sizeof(security));
     }
     else if (security == 1)
     {
       security = 0;
       lcd.clear();
+      eeprom_write_block((const void*)&security, (void*)0, sizeof(security));
     }
   }
   if (security == 0)
