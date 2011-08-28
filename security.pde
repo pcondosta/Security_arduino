@@ -1,7 +1,7 @@
 #include <Wire.h>
 #include <inttypes.h>
 #include <LCDi2cNHD.h>                    
-#include <avr/eeprom.h"
+#include <avr/eeprom.h>
 LCDi2cNHD lcd = LCDi2cNHD(2,16,0x50>>1,0);
 
 uint8_t rows = 2;
