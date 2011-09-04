@@ -26,33 +26,26 @@ void loop()
 
   if (buttonState == HIGH)
   {
-    if (security == 0)
-    {
-      security = 1;
-      lcd.clear();
-      eeprom_write_block((const void*)&security, (void*)0, sizeof(security));
-    }
-    else if (security == 1)
+    if (security)
     {
       security = 0;
+      digitalWrite(ledPin, LOW);
+      lcd.clear();
+      eeprom_write_block((const void*)&security, (void*)0, sizeof(security));
+    }
+    else
+    {
+      security = 1;
+      digitalWrite(ledPin, HIGH);
       lcd.clear();
       eeprom_write_block((const void*)&security, (void*)0, sizeof(security));
     }
   }
-  if (security == 0)
-  {
-    lcd.setCursor(0,0);
-    lcd.print("Security System");
-    lcd.setCursor(1,0);
-    lcd.print("Status: OFF");
-    digitalWrite(ledPin, LOW);
-  }
+  lcd.setCursor(0,0);
+  lcd.print("Security System");
+  lcd.setCursor(1,0);
+  if (security)
+    lcd.print("Status: ARMED");
   else
-  {
-    lcd.setCursor(0,0);
-    lcd.print("Security System");
-    lcd.setCursor(1,0);
-    lcd.print("Status: ON");
-    digitalWrite(ledPin, HIGH);
-  }
+    lcd.print("Status: DISARMED");
 }
