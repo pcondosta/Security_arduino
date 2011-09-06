@@ -7,7 +7,11 @@ LCDi2cNHD lcd = LCDi2cNHD(2,16,0x50>>1,0);
 uint8_t rows = 2;
 uint8_t cols = 16;
 int buttonPin = 2;
-int ledPin = 5;
+int rfidSense = 4;
+int fdState = 5;
+int bsdrState = 6;
+int bslrState = 7;
+int secState = 8;
 int buttonState = 0;
 int security = 0;
 
@@ -16,7 +20,11 @@ void setup() {
   
   lcd.clear();
   pinMode(buttonPin, INPUT);
-  pinMode(ledPin, OUTPUT);
+  pinMode(secState, OUTPUT);
+  pinMode(rfidSense, INPUT);
+  pinMode(fdState, INPUT);
+  pinMode(bsdrState, INPUT);
+  pinMode(bslrState, INPUT);
   eeprom_read_block((void*)&security, (void*)0, sizeof(security));
 }
 
