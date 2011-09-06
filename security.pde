@@ -37,14 +37,14 @@ void loop()
     if (security)
     {
       security = 0;
-      digitalWrite(ledPin, LOW);
+      digitalWrite(secState, LOW);
       lcd.clear();
       eeprom_write_block((const void*)&security, (void*)0, sizeof(security));
     }
     else
     {
       security = 1;
-      digitalWrite(ledPin, HIGH);
+      digitalWrite(secState, HIGH);
       lcd.clear();
       eeprom_write_block((const void*)&security, (void*)0, sizeof(security));
     }
